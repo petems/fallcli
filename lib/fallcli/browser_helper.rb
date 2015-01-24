@@ -8,6 +8,10 @@ module FallCli
       @position = 0
     end
 
+    def get_current_file
+      @files[@position]
+    end
+
     def show_files
       @files.each_with_index.map do |item, index|
         position == index ? "[#{pretty_dropbox_file(item)}]" : " #{pretty_dropbox_file(item)} "
