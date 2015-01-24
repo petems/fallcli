@@ -34,6 +34,12 @@ module FallCli
       Middleware.sequence_browser.call({})
     end
 
+    desc "music-player", "Run the music player"
+    long_desc "This is a basic music player. You can browse around files and play them
+    through the command line."
+    def music_player
+      Middleware.sequence_music_player.call({})
+    end
 
     desc "verify", "Check your given credentials are valid"
     long_desc "This checks that the credentials in ~/.fallcli are correct"

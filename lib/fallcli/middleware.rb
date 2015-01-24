@@ -10,6 +10,7 @@ module FallCli
     autoload :CheckCredentials, "fallcli/middleware/check_credentials"
     autoload :InjectClient, "fallcli/middleware/inject_client"
     autoload :InjectConfiguration, "fallcli/middleware/inject_configuration"
+    autoload :MusicPlayer, "fallcli/middleware/music_player"
 
     def self.sequence_authorize
       ::Middleware::Builder.new do
@@ -28,6 +29,15 @@ module FallCli
         use CheckConfiguration
         use InjectClient
         use Browser
+      end
+    end
+
+    def self.sequence_music_player
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use MusicPlayer
       end
     end
 
