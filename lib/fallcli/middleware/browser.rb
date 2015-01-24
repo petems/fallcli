@@ -79,6 +79,21 @@ ______ ___   _      _     _____  _     _____
             case key
             when :up then browser.position_up
             when :down then browser.position_down
+            when :enter
+              file = browser.get_current_file
+              file_basename = File.basename(file.path)
+
+              fallcli_folder_location = '.fallcli/'
+
+              download_folder = File.join(File.expand_path("~"), fallcli_folder_location)
+
+              download_location = File.join(download_folder, file_basename)
+
+              contents = env['dropbox-client'].download file.path
+
+              File.open(download_location, 'w') {|f| f.write(contents) }
+
+              say "File downloaded successfully to #{download_location}!"
             when "q" then break
             end
             screen.draw show_ui(browser)
