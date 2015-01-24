@@ -99,7 +99,7 @@ ______ ___   _      _     _____  _     _____
               total_size = File.size(filepath)
               contents  = File.read(filepath)
 
-              if total_size < 5000000
+              if total_size < 5*1024*1024
                 env['dropbox-client'].upload file_name, contents
               else
                 say "Larger than 5MB: Progress Upload"
@@ -109,7 +109,7 @@ ______ ___   _      _     _____  _     _____
                   :starting_at => 0,
                   :total => total_size)
 
-                response = env['dropbox-client'].chunked_upload File.open(filepath), contents do |offset, upload|
+                response = env['dropbox-client'].chunked_upload file_name, File.open(filepath), :chunk_size => 0.1*1024*1024 do |offset, upload|
                   upload_progress_bar.progress = offset
                 end
               end
