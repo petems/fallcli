@@ -1,4 +1,4 @@
-require 'fallcli/browser'
+require 'fallcli/browser_helper'
 require 'dispel'
 
 module FallCli
@@ -64,14 +64,13 @@ ______ ___   _      _     _____  _     _____
       def call(env)
         config = env["config"]
 
-
         say SPLASH
 
         sleep(2)
 
         songs = env['dropbox-client'].ls
 
-        browser = FallCli::Browser.new(songs)
+        browser = FallCli::BrowserHelper.new(songs)
 
         Dispel::Screen.open do |screen|
           screen.draw show_ui(browser)

@@ -1,5 +1,5 @@
 module FallCli
-  class Browser
+  class BrowserHelper
     attr_accessor :position
 
     def initialize items
