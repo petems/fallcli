@@ -1,4 +1,4 @@
-require 'fallcli/browser_helper'
+require 'fallcli/music_player_helper'
 require 'dispel'
 
 module FallCli
@@ -35,22 +35,21 @@ V.#{FallCli::VERSION}
 
         say SPLASH
 
-        sleep(2)
-
         songs = env['dropbox-client'].ls 'Music'
 
-        browser = FallCli::BrowserHelper.new(songs)
+        music_player = FallCli::MusicPlayerHelper.new(songs)
 
         Dispel::Screen.open do |screen|
-          screen.draw show_ui(browser)
+          screen.draw show_ui(music_player)
 
           Dispel::Keyboard.output do |key|
             case key
-            when :up then browser.position_up
-            when :down then browser.position_down
+            when :up then music_player.position_up
+            when :down then music_player.position_down
+            when :enter then music_player.play
             when "q" then break
             end
-            screen.draw show_ui(browser)
+            screen.draw show_ui(music_player)
           end
         end
 
