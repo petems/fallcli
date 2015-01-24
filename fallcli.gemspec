@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "dropbox-api-petems", "1.1.0"
   gem.add_dependency "dispel", "0.0.7"
+  gem.add_dependency "ruby-progressbar", "~> 1.2.0"
 
   gem.add_development_dependency "rake", "~> 10.1.0"
   gem.add_development_dependency "rspec-core", "~> 2.13.0"

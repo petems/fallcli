@@ -37,6 +37,7 @@ module FallCli
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
+        use CheckCredentials
         use UploaderBrowser
       end
     end

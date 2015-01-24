@@ -34,7 +34,7 @@ module FallCli
       Middleware.sequence_browser.call({})
     end
 
-    desc "upload-browser", "Run the upload-browser"
+    desc "uploader-browser", "Run the upload-browser"
     long_desc "This is the file browser that renders your local file system files
     files, and you can upload with the CLI"
     def uploader_browser

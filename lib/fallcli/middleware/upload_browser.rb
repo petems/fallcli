@@ -1,5 +1,7 @@
 require 'fallcli/uploader_browser_helper'
+require 'ruby-progressbar'
 require 'dispel'
+require 'pathname'
 
 module FallCli
   module Middleware
@@ -19,10 +21,6 @@ module FallCli
           end
         end
         files
-      end
-
-      def upload_file(file)
-        puts "Would have uploaded #{file}"
       end
 
 SPLASH = %{
@@ -94,7 +92,29 @@ ______ ___   _      _     _____  _     _____
             case key
             when :up then upload_browser.position_up
             when :down then upload_browser.position_down
-            when :enter then upload_file(upload_browser.get_current_file)
+            when :enter then
+              file = upload_browser.get_current_file
+              file_name = File.basename(file)
+              filepath = Pathname.new(file).realpath.to_s
+              total_size = File.size(filepath)
+              contents  = File.read(filepath)
+
+              if total_size < 5000000
+                env['dropbox-client'].upload file_name, contents
+              else
+                say "Larger than 5MB: Progress Upload"
+
+                upload_progress_bar = ::ProgressBar.create(:title => "Upload progress",
+                  :format => '%a <%B> %p%% %t',
+                  :starting_at => 0,
+                  :total => total_size)
+
+                response = env['dropbox-client'].chunked_upload File.open(filepath), contents do |offset, upload|
+                  upload_progress_bar.progress = offset
+                end
+              end
+
+              say "File uploaded successfully!"
             when "q" then break
             end
             screen.draw show_ui(upload_browser)
