@@ -34,6 +34,12 @@ module FallCli
       Middleware.sequence_browser.call({})
     end
 
+    desc "uploader-browser", "Run the upload-browser"
+    long_desc "This is the file browser that renders your local file system files
+    files, and you can upload with the CLI"
+    def uploader_browser
+      Middleware.sequence_upload_browser.call({})
+    end
 
     desc "verify", "Check your given credentials are valid"
     long_desc "This checks that the credentials in ~/.fallcli are correct"

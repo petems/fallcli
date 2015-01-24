@@ -10,6 +10,7 @@ module FallCli
     autoload :CheckCredentials, "fallcli/middleware/check_credentials"
     autoload :InjectClient, "fallcli/middleware/inject_client"
     autoload :InjectConfiguration, "fallcli/middleware/inject_configuration"
+    autoload :UploaderBrowser, "fallcli/middleware/upload_browser"
 
     def self.sequence_authorize
       ::Middleware::Builder.new do
@@ -28,6 +29,16 @@ module FallCli
         use CheckConfiguration
         use InjectClient
         use Browser
+      end
+    end
+
+    def self.sequence_upload_browser
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use CheckCredentials
+        use UploaderBrowser
       end
     end
 
