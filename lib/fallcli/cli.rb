@@ -27,11 +27,11 @@ module FallCli
       Middleware.sequence_authorize.call({})
     end
 
-    desc "interactive-cli", "Run the interactive CLI"
-    long_desc "This runs the interactive cli to interact with Dropbox, using
-    curses to redner your files."
-    def interactive_cli
-      Middleware.sequence_interactive_cli.call({})
+    desc "browser", "Run the browser"
+    long_desc "This is the file browser that renders a CLI to browse your Dropbox
+    files, and you can navigate using the arrow keys"
+    def browser
+      Middleware.sequence_browser.call({})
     end
 
 

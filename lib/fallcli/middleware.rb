@@ -5,7 +5,7 @@ module FallCli
     autoload :Base, "fallcli/middleware/base"
 
     autoload :AskForCredentials, "fallcli/middleware/ask_for_credentials"
-    autoload :InteractiveCLI, "fallcli/middleware/interactive_cli"
+    autoload :Browser, "fallcli/middleware/browser"
     autoload :CheckConfiguration, "fallcli/middleware/check_configuration"
     autoload :CheckCredentials, "fallcli/middleware/check_credentials"
     autoload :InjectClient, "fallcli/middleware/inject_client"
@@ -22,12 +22,12 @@ module FallCli
       end
     end
 
-    def self.sequence_interactive_cli
+    def self.sequence_browser
       ::Middleware::Builder.new do
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
-        use InteractiveCLI
+        use Browser
       end
     end
 

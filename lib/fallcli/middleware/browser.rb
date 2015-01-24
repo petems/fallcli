@@ -4,7 +4,7 @@ require 'dispel'
 module FallCli
   module Middleware
     # Check if the client has set-up configuration yet.
-    class InteractiveCLI < Base
+    class Browser < Base
 
       def show_ui filelist_obj
         ["\n", filelist_obj.show_files, "\nCurrent position: #{filelist_obj.position + 1} "].join("\n")
